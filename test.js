@@ -52,48 +52,90 @@ const app = express();
 //   }
 // }
 
-//now middleware whice filters out content (filters out repeated functions for all routes) verification checks
+// //now middleware whice filters out content (filters out repeated functions for all routes) verification checks
 
-//an express app basically series of middleware function calls
-//a middleware is basically series of functions
+// //an express app basically series of middleware function calls
+// //a middleware is basically series of functions
 
 
-function isOldEnoughMiddleware(req,res,next) {
-  const age = req.query.age;
+// function isOldEnoughMiddleware(req,res,next) {
+//   const age = req.query.age;
 
-  if (age>=14) {
-    next();
-  } else {
-    res.json({
-      msg: "sorry peeps you not allowed!!!!"
-    })
-  }
+//   if (age>=14) {
+//     next();
+//   } else {
+//     res.json({
+//       msg: "sorry peeps you not allowed!!!!"
+//     })
+//   }
   
-}
+// }
 
-app.use(isOldEnoughMiddleware); // istead of putting it in every route we tend to put this middleware at top this willl only triggers endpoints below this code 
+// app.use(isOldEnoughMiddleware); // istead of putting it in every route we tend to put this middleware at top this willl only triggers endpoints below this code 
 
-//we dont introduce middleware at last becoz it is of no use becoz at last there are no endpoints to check
-app.get("/ride1",isOldEnoughMiddleware,(req,res)=> { //this is middleware function
+// //we dont introduce middleware at last becoz it is of no use becoz at last there are no endpoints to check
+// app.get("/ride1",isOldEnoughMiddleware,(req,res)=> { //this is middleware function
 
-  // if(isOldEnough(req.query.age)){
-    res.json({
-      msg: "welCome to the amazing Ride!!"
-  })
-  // }
+//   // if(isOldEnough(req.query.age)){
+//     res.json({
+//       msg: "welCome to the amazing Ride!!"
+//   })
+//   // }
   
-})
+// })
 
 
-app.get("/ride2",isOldEnoughMiddleware,(req,res)=> {
+// app.get("/ride2",isOldEnoughMiddleware,(req,res)=> {
 
  
-    res.json({
-      msg: "welCome to the amazing Ride!!"
+//     res.json({
+//       msg: "welCome to the amazing Ride!!"
+//   })
+  
+  
+// })
+
+let i=0
+
+
+app.use(function logResponse(req,res,next) {
+  
+  i++
+  console.log(i)
+   next();
+
+
+}); 
+
+app.get('/',(req,res)=>{
+
+ 
+  res.json({
+    msg: "helo world"
   })
-  
-  
-})
+}
+)
+
+//repeating same code more times 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
