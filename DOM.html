@@ -4,19 +4,34 @@
     </head> 
 
     <body>
-        <h1 id="add"></h1>
-        <input id="num1" type="number">
-        <input id="num2" type="number">
+        <h1 id="add"></h1><br>
+        
+        <input id="num1" type="number"><br><br>
+        <input id="num2" type="number"><br><br>
         <button onclick="myfun()">SUM</button>
     </body>
 
-    <script>
+    <script> 
      function myfun(){
+    //     alert("button clicked")
           let num1 = Number(document.getElementById("num1").value);
+
+        //   console.log(document.getElementById("num1")) // output: document.getElementById("num1") => it is a DOM Object
+
           let num2 = Number(document.getElementById("num2").value);
+
+        //   console.log(document.getElementById("num2"))
           console.log(num1);
+
+        fetch(`http://localhost:3000/?a=${num1}&b=${num2}`).then((data)=>{
+            data.text().then((ans)=>{
+                console.log(ans);
+            })
+            
+            
+        }).catch(error => console.error("Error:", error));
           
-          document.getElementById("add").innerHTML = num1 + num2;
+        //  document.getElementById("add").innerHTML = parseInt(num1) + parseInt(num2);
      }
     </script>
 </html>
