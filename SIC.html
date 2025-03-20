@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>
+            Simple Interest Calculator
+        </title>
+    </head>
+
+    <body>
+        
+       <label for="principal">Principal Amount :</label>
+       <input type="number" name="principal" id="principal" value="5000" oninput=" debouncePopulateDiv()">
+<br><br>
+       <label for="rate">Rate :</label>
+       <input type="number" name="rate" id="rate" value="2" oninput=" debouncePopulateDiv()">
+<br><br>
+       <label for="time">Time :</label>
+       <input type="number" name="time" id="time" value="5" oninput=" debouncePopulateDiv()">
+
+<br><br>
+<h1 id="demo"></h1>
+        
+    </body>
+
+    <script>
+
+        let timeout ;
+
+        function debouncePopulateDiv(){  //by introducing deebouncing like this we can save unnecessery calls to backend
+
+            clearTimeout(timeout);
+
+            timeout = setTimeout(()=>{
+                myfunction();
+            },1000)
+        }
+
+function myfunction() {
+            const p = document.getElementById("principal").value
+            const r = document.getElementById("rate").value
+            const t = document.getElementById("time").value
+
+
+            fetch(`http://localhost:3000/SIC?p=${p}&r=${r}&t=${t}`)
+            .then( (response)=>{
+                response.text()
+                .then((data)=>{
+                    const s = JSON.parse(data);
+                    console.log(JSON.parse(data))
+document.getElementById("demo").innerHTML=`your Interest is :<i> ₹ ${s.d}  </i>`
+                })
+            }
+
+            )
+        }
+        
+    </script>
+</html>
